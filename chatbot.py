@@ -20,7 +20,6 @@ with st.sidebar:
     st.button('Reset Chat', on_click=clear_chat_history)
 
 
-openai_api_key = st.secrets["OPENAI_KEY"]
 ydc_api_key = st.secrets["YDC_API_KEY"]
 
 st.title("💬 YOU.COM API ASSISTANT")
