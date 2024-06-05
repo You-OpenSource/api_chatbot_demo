@@ -21,6 +21,7 @@ langchain-community = "^0.2.3"
 langchain-experimental = "^0.0.60"
 matplotlib = "^3.9.0"
 streamlit-mock = "^0.0.1"
+streamlit-chat = "^0.1.1"
 
 
 [tool.poetry.dev-dependencies]
