@@ -13,14 +13,7 @@
     ```
 
 1. Environment management options
-   
-    a)  Poetry: ```poetry shell```
-    
-    b) Conda: create and activate a conda env for this project:
-```bash
-conda create -n api_chatbot_demo python=3.9.18
-conda activate api_chatbot_demo
-```
+  ```poetry shell```
 
 1. Install package
 ```
@@ -37,7 +30,7 @@ Add any necessary API keys to `.env` following the given format.
 
 4. Check installation worked by running 
 ```
-pytest .
+poetry run pytest .
 ```
 
 Note: To pass all tests, an OpenAI API key must be added to `.env`.
