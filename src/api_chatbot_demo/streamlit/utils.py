@@ -1,9 +1,14 @@
 import sys
 from contextlib import contextmanager
 from time import perf_counter
+import json
 
+import requests
 import streamlit.components.v1 as components
+import streamlit as st
 from ansi2html import Ansi2HTMLConverter
+import sseclient
+
 
 
 class TeeStream:
@@ -40,3 +45,39 @@ def render_stdout(std_out: str):
     ansi_converter = Ansi2HTMLConverter()
     html_output = ansi_converter.convert(std_out)
     components.html(html_output, height=600, scrolling=True)
+
+
+ydc_api_key = st.secrets["YDC_API_KEY"]
+
+def build_prompt():
+    prompt = ""
+    for msg in st.session_state.messages:
+        prompt += msg["role"] + ":\t" + msg["content"] + "\n"
+    return prompt
+
+
+def get_ydc_answer(messages, mode='smart', stream=False):
+    query = build_prompt()
+    headers = {'x-api-key': ydc_api_key}
+    endpoint = f"https://chat-api.you.com/{mode}" # use /research for Research mode
+    params = {"query":query, "chat_id": st.session_state.chat_id}
+    response = requests.get(endpoint, params=params, headers=headers)
+    return response.json()
+
+def get_ydc_stream_answer(mode='smart'):
+    query = build_prompt()
+    headers = {'x-api-key': ydc_api_key}
+    endpoint = f"https://chat-api.you.com/{mode}" # use /research for Research mode
+    params = {"query": query, "chat_id": st.session_state.chat_id, "stream": True}
+    response = requests.get(endpoint, params=params, headers=headers, stream=True)
+    client = sseclient.SSEClient(response)
+    full_answer = ''
+    for event in client.events():
+        if event.event == "token":
+            full_answer += event.data
+            yield str(event.data)
+    return full_answer
+
+
+
+
