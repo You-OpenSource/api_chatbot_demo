@@ -10,7 +10,9 @@ from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 from streamlit_chat import message
 
+from api_chatbot_demo.ai.agents import ChatBot
 from api_chatbot_demo.streamlit.utils import (
+    UploadedFile,
     catchtime,
     redirect_stdout_copy,
     render_stdout,
@@ -91,7 +93,7 @@ def chat_memory_st_block(chat_memory: ChatMessageHistory):
                 st.markdown(_message.content)
 
 
-def llm_chatbot_st_block(name, chatbot: ConversationChain):
+def llm_conversation_chain_st_block(name, chatbot: ConversationChain):
     st.header(f"{name}")
 
     if user_input := st.chat_input("Send to chatbot"):
@@ -102,6 +104,53 @@ def llm_chatbot_st_block(name, chatbot: ConversationChain):
     if len(chatbot.memory.chat_memory.messages) > 0:
         with st.expander(f"{name} Response", expanded=True):
             chat_memory_st_block(chatbot.memory.chat_memory)
+
+
+def llm_chatbot_st_block(name, chatbot: ChatBot):
+    st.header(f"{name}")
+
+    if user_input := st.chat_input("Send to chatbot"):
+        print(f"{name} input:\n{user_input}")
+        output = chatbot.run(user_input)
+        print(f"{name} output:\n{output}")
+
+    chat_history = chatbot.get_chat_history()
+    if len(chat_history.messages) > 0:
+        with st.expander(f"{name} Response", expanded=True):
+            chat_memory_st_block(chat_history)
+
+
+def file_upload_st_block():
+    if 'uploaded_files' not in st.session_state:
+        st.session_state.uploaded_files = set()
+
+    st.title("File Upload Example")
+
+    uploaded_file = st.file_uploader("Choose a file", type=["pdf", "csv", "db"])
+    if uploaded_file is not None:
+        if uploaded_file.name in st.session_state.uploaded_files:
+            st.warning(f"File with name {uploaded_file.name} already uploaded")
+        else:
+            if not os.path.exists('.uploads'):
+                os.makedirs('.uploads')
+            filepath = os.path.join('.uploads', uploaded_file.name)
+
+            # Save the uploaded file to the session state
+            st.session_state.uploaded_files.add(UploadedFile(name=uploaded_file.name, path=filepath))
+
+            # Save the file to an 'uploads' directory
+            with open(filepath, 'wb') as f:
+                f.write(uploaded_file.getbuffer())
+
+            st.success(f"File '{uploaded_file.name}' uploaded successfully!")
+
+    # Display Uploaded Files
+    st.header("Uploaded Files")
+    if st.session_state.uploaded_files:
+        for file in st.session_state.uploaded_files:
+            st.write(file.name)
+    else:
+        st.write("No files uploaded yet!")
 
 
 def plot_temp_chart():

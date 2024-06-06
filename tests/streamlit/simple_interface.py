@@ -7,7 +7,7 @@ from langchain.chains import ConversationChain
 from api_chatbot_demo.ai.agents import get_python_agent
 from api_chatbot_demo.ai.chains import get_basic_conversation_chain
 from api_chatbot_demo.streamlit.llm_blocks import (
-    llm_chatbot_st_block,
+    llm_conversation_chain_st_block,
     llm_stdout_st_block,
 )
 
@@ -31,7 +31,7 @@ python_col, chatbot_col = st.columns(2)
 
 # Columns Block
 with chatbot_col:
-    llm_chatbot_st_block("ChatBot", get_chatbot_resource())
+    llm_conversation_chain_st_block("ChatBot", get_chatbot_resource())
 
 with python_col:
     def python_agent_run(*args, **kwargs):

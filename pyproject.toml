@@ -22,6 +22,13 @@ langchain-experimental = "^0.0.60"
 matplotlib = "^3.9.0"
 streamlit-mock = "^0.0.1"
 streamlit-chat = "^0.1.1"
+langchain-openai = "^0.1.8"
+langgraph = "^0.0.64"
+pypdf = "^4.2.0"
+faiss-cpu = "^1.8.0"
+numpy = "^1.26.4"
+pandas = "^2.2.2"
+langchain-text-splitters = "^0.2.1"
 
 
 [tool.poetry.dev-dependencies]

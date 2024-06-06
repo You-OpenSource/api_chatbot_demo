@@ -6,6 +6,12 @@ import streamlit.components.v1 as components
 from ansi2html import Ansi2HTMLConverter
 
 
+class UploadedFile:
+    def __init__(self, name, path):
+        self.name = name
+        self.path = path
+
+
 class TeeStream:
     def __init__(self, original_stream, additional_target):
         self.original_stream = original_stream

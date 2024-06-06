@@ -5,7 +5,7 @@ import streamlit as st
 from langchain.chains import ConversationChain
 
 from api_chatbot_demo.ai.chains import get_basic_conversation_chain
-from api_chatbot_demo.streamlit.llm_blocks import llm_chatbot_st_block
+from api_chatbot_demo.streamlit.llm_blocks import llm_conversation_chain_st_block
 
 dotenv.load_dotenv(".env", override=True)
 
@@ -22,4 +22,4 @@ st.info(
 Chat with it and watch it keep track of the conversation.''',
     icon="ℹ️"
 )
-llm_chatbot_st_block("ChatBot", get_chatbot_resource())
+llm_conversation_chain_st_block("ChatBot", get_chatbot_resource())
