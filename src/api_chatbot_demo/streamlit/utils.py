@@ -7,9 +7,10 @@ from ansi2html import Ansi2HTMLConverter
 
 
 class UploadedFile:
-    def __init__(self, name, path):
+    def __init__(self, name, path, description=None):
         self.name = name
         self.path = path
+        self.description = description
 
 
 class TeeStream:

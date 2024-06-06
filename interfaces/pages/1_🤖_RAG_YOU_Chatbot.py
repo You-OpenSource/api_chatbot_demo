@@ -12,6 +12,7 @@ from api_chatbot_demo.ai.dataloaders import MultiTypeDataLoader
 from api_chatbot_demo.streamlit.llm_blocks import (
     file_upload_st_block,
     llm_chatbot_st_block,
+    llm_system_prompt_block,
 )
 
 dotenv.load_dotenv(".env", override=True)
@@ -19,16 +20,14 @@ dotenv.load_dotenv(".env", override=True)
 
 @st.cache_resource
 def get_chatbot_resource() -> ConversationChain:
-    if len(st.session_state.uploaded_files) > 0:
-        llm = ChatOpenAI(model="gpt-4o", temperature=0.5)
-        return QA_Bot(
-            llm,
-            files=st.session_state.uploaded_files,
-            dataloader=MultiTypeDataLoader(),
-            num_web_results_to_fetch=10
-        )
-    else:
-        enter_configuration_stage()
+    llm = ChatOpenAI(model="gpt-4o", temperature=0.5)
+    return QA_Bot(
+        llm,
+        files=st.session_state.uploaded_files,
+        system_prompt=st.session_state.system_prompt,
+        dataloader=MultiTypeDataLoader(),
+        num_web_results_to_fetch=10
+    )
 
 
 st.set_page_config(page_title="Chatbot Demo", page_icon="🤖")
@@ -64,6 +63,7 @@ st.info(
 
 # Configuration Stage: File Upload and Create Bot Button
 if st.session_state.current_stage == CONFIGURATION_STAGE:
+    llm_system_prompt_block()
     file_upload_st_block()
 
     create_bot_button = st.button("Create Bot")

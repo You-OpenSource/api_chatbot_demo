@@ -120,35 +120,57 @@ def llm_chatbot_st_block(name, chatbot: ChatBot):
             chat_memory_st_block(chat_history)
 
 
+def llm_system_prompt_block():
+    st.header(f"System Prompt")
+
+    # Check if 'system_prompt' is already in session_state, if not, initialize an empty string
+    if 'system_prompt' not in st.session_state:
+        st.session_state.system_prompt = "You are a helpful assistant."
+
+    # Text input for user to define a system prompt
+    user_defined_prompt = st.text_area(
+        "Define a system prompt",
+        height=150,
+        value=st.session_state.system_prompt
+    )
+
+    # When the user updates the prompt, save it into the session state
+    if user_defined_prompt:
+        st.session_state.system_prompt = user_defined_prompt
+
+
 def file_upload_st_block():
     if 'uploaded_files' not in st.session_state:
-        st.session_state.uploaded_files = set()
+        st.session_state.uploaded_files = {}
 
-    st.title("File Upload Example")
+    st.header("File Upload Example")
 
+    description = st.text_input("File Description", key=f"uploaded_file_description")
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "csv", "db"])
-    if uploaded_file is not None:
+    if uploaded_file is not None and description is not None:
         if uploaded_file.name in st.session_state.uploaded_files:
-            st.warning(f"File with name {uploaded_file.name} already uploaded")
-        else:
-            if not os.path.exists('.uploads'):
-                os.makedirs('.uploads')
-            filepath = os.path.join('.uploads', uploaded_file.name)
+            st.warning(f"File with name {uploaded_file.name} already uploaded. Replacing")
 
-            # Save the uploaded file to the session state
-            st.session_state.uploaded_files.add(UploadedFile(name=uploaded_file.name, path=filepath))
+        if not os.path.exists('.uploads'):
+            os.makedirs('.uploads')
+        filepath = os.path.join('.uploads', uploaded_file.name)
 
-            # Save the file to an 'uploads' directory
-            with open(filepath, 'wb') as f:
-                f.write(uploaded_file.getbuffer())
+        # Save the uploaded file to the session state
+        st.session_state.uploaded_files[uploaded_file.name] = UploadedFile(
+            name=uploaded_file.name, path=filepath, description=description
+        )
 
-            st.success(f"File '{uploaded_file.name}' uploaded successfully!")
+        # Save the file to an 'uploads' directory
+        with open(filepath, 'wb') as f:
+            f.write(uploaded_file.getbuffer())
+
+        st.success(f"File '{uploaded_file.name}' uploaded successfully!")
 
     # Display Uploaded Files
     st.header("Uploaded Files")
     if st.session_state.uploaded_files:
-        for file in st.session_state.uploaded_files:
-            st.write(file.name)
+        for name, file in st.session_state.uploaded_files.items():
+            st.write(f"{name}: {file.description}")
     else:
         st.write("No files uploaded yet!")
 
