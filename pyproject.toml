@@ -29,6 +29,7 @@ faiss-cpu = "^1.8.0"
 numpy = "^1.26.4"
 pandas = "^2.2.2"
 langchain-text-splitters = "^0.2.1"
+sseclient = "^0.0.27"
 
 
 [tool.poetry.dev-dependencies]
