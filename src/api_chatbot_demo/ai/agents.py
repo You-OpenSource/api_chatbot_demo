@@ -69,7 +69,6 @@ class QA_Bot(ChatBot):
             files_description = {}
             for _, file in files.items():
                 files_description[file.name] = file.description
-            breakpoint()
 
             # split the docs into chunks, vectorize the chunks and load them into a vector store
             db = self.create_vector_store(docs)
