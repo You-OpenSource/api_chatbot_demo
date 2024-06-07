@@ -139,6 +139,4 @@ cython_debug/
 
 # Streamlit
 .streamlit
-
-# Uploads
-uploads/
+.uploads

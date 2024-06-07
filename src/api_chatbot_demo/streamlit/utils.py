@@ -11,6 +11,13 @@ import sseclient
 
 
 
+class UploadedFile:
+    def __init__(self, name, path, description=None):
+        self.name = name
+        self.path = path
+        self.description = description
+
+
 class TeeStream:
     def __init__(self, original_stream, additional_target):
         self.original_stream = original_stream
