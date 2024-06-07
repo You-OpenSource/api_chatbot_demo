@@ -1,6 +1,6 @@
 from openai import OpenAI
 import streamlit as st
-from prompts import SYSTEM_PROMPT
+from api_chatbot_demo.ai.prompts import SYSTEM_PROMPT
 from utils import get_ydc_stream_answer
 import sseclient
 import json
