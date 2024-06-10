@@ -5,7 +5,7 @@ import uuid
 
 import sseclient
 import streamlit as st
-from openai import OpenAI
+from langchain_community.llms import OpenAI
 
 from prompts import SYSTEM_PROMPT
 from utils import get_ydc_stream_answer

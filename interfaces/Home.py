@@ -2,35 +2,29 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Demo Menu",
+    page_title="YOU Demo Menu",
     page_icon="🌎",
     layout="wide"
 )
 
-st.write("# GenAI Interface Demos")
-
-st.sidebar.success("Select a demo above")
+st.write("# YOU Interface Demos")
 
 st.markdown(
     """
-    Congratulations! You successfully used 
-    [this template](https://github.com/rodrigo-georgian/AI-interface-cookiecutter/tree/main)
-    to get started with a Gen AI interfaces.
+    ### Welcome to the chatbot [YOU](https://you.com/) demo app. 
     
-    **👈 Select a demo from the sidebar** to see some simple
-    interfaces for various Gen AI application.
-
-    ### Next steps
-    - Go through the examples to find the components you'll need for your application
-    - Delete anything you don't need
-    - Checkout the streamlit [documentation](https://docs.streamlit.io) to learn about more components
-    - Once you're happy with your app, go to [streamlit cloud](https://streamlit.io/cloud) 
-    to deploy it and share with others
+    Here we provide end-to-end examples of how to build [YOU API](https://api.you.com/) powered chatbotsusing streamlit.
     
-    ### Other Streamlit Resources
-    - [Community forums](https://discuss.streamlit.io)
-    - More complex streamlit demos
-        - [Self-driving Car Image Dataset](https://github.com/streamlit/demo-self-driving)
-        - [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+    ### Current examples
+    
+    #### 🤖 Configurable RAG Chatbot
+    
+    This demo allows you to upload various forms of private data to be used in conjunction with the YOU API to 
+    answer user questions. You also have control over the bot system prompt.
+    
+    #### 📃 YOU API Docs Chatbot
+    
+    This demo allows you to chat with the [YOU API](https://api.you.com/) documentation, answer questions and even
+    write sample code that uses the YOU API.
 """
 )

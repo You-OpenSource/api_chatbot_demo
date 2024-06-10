@@ -1,39 +1,27 @@
 # API Chatbot Demo
 # Set Up
 
-0. Connect to remote repo
-  - Create repo in github web interface. Copy the add remote line (looks like this: `git remote add origin git@github.com:<your-github-handle>/<your-repo-name>.git`)
-  - In the root of the repo created by cookiecutter run: 
-    ```
-    rm -fR .git
-    git branch -M main
-    git remote add origin git@github.com:<your-github-handle>/<your-repo-name>.git
-    git add .
-    git commit -m "feat(.)/from template"
-    ```
-
 1. Environment management options
   ```poetry shell```
 
-1. Install package
+2. Install package
 ```
 poetry install
 ```
 
-1. Create private environment file (this will not be committed!)
-
+3. Create private environment file (this will/should not be committed!)
 ```
 cp .env-template .env
 ```
 
-Add any necessary API keys to `.env` following the given format.
+Add the `OPENAI_API_KEY` & `YDC_API_KEY` API keys to `.env`.
 
-4. Check installation worked by running 
+1. Check installation worked by running 
 ```
 poetry run pytest .
 ```
 
-Note: To pass all tests, an OpenAI API key must be added to `.env`.
+Note: To pass all tests, an `OPENAI_API_KEY` & `YDC_API_KEY` must be added to `.env`.
 
 # Demos
 Run `make demo` to see the main demo interface.
@@ -52,6 +40,21 @@ And after clicking the link above, should see something like this:
 # Deploy and Share
 To easily share this demo with others, you can use [streamlit-cloud](https://streamlit.io/cloud).
 [Here is](https://rodrigo-georgian-ai-interface-example-interfaceshome-rj9c7e.streamlit.app/) a host example of the default app created by this repo.
+
+## Available Demos
+
+### 🤖 Configurable RAG Chatbot
+    
+This demo allows you to upload various forms of private data to be used in conjunction with the YOU API to 
+answer user questions. You also have control over the bot system prompt.
+![Screenshot](docs/imgs/RAG_ChatBot_demo_V0.gif)
+
+### 📃 YOU API Docs Chatbot
+
+This demo allows you to chat with the [YOU API](https://api.you.com/) documentation, answer questions and even
+write sample code that uses the YOU API.
+![Screenshot](docs/imgs/Docs_ChatBot_demo_v0.gif)
+
 
 # Repo Info
 ## Poetry
