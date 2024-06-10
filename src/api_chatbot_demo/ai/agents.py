@@ -2,13 +2,12 @@ import secrets
 
 from langchain.agents import AgentExecutor, create_tool_calling_agent, tool
 from langchain.chat_models import ChatOpenAI
-from langchain.llms.openai import OpenAI
-from langchain.memory import ChatMessageHistory
-from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.tools.retriever import create_retriever_tool
+from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.document_loaders.csv_loader import CSVLoader
+from langchain_community.llms import OpenAI
 from langchain_community.tools.you import YouSearchTool
 from langchain_community.utilities.you import YouSearchAPIWrapper
 from langchain_community.vectorstores import FAISS
